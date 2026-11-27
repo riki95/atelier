@@ -215,3 +215,6 @@ tile + white Λ).
   (`src/main/transcript-lines.ts`), which checks the opened file is the named one and not a link.
 - On Windows a rename over a file another handle holds open fails with EPERM (a poll or an antivirus scan is enough):
   tests swap a followed file by pointing at a new path, never by renaming over it.
+- Images into Claude Code's prompt (the phone's `say` with `images`, and `paste`): Claude Code turns a pasted image
+  path into `[Image #N]` only when the path comes alone in its own bracketed paste, and text typed right after needs a
+  leading space or it joins the marker. Atelier waits for each new marker before the next (`remote/prompt-outbox.ts`).
