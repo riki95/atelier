@@ -215,3 +215,8 @@ tile + white Λ).
   (`src/main/transcript-lines.ts`), which checks the opened file is the named one and not a link.
 - On Windows a rename over a file another handle holds open fails with EPERM (a poll or an antivirus scan is enough):
   tests swap a followed file by pointing at a new path, never by renaming over it.
+- The workspace colors' count is `PROJECT_COLOR_COUNT` (`src/shared/project-color.ts`, 12), shared by windows,
+  workspaces and activities. A change to it also needs every theme's `--ws-N` (`theme.css`, `themes*.css`), the
+  `data-project-color` rules in `layout.css`, `WS_COLOR_ORDER` and the names in `en.ts`, and the look vectors copied to
+  the iPhone app; the phone layout's zod schema (`ipc-schemas.ts`) reads the count, and a fixed `max(8)` there once
+  refused every layout with a place wearing 9…12, silently. `src/main/ws-colors.test.ts` keeps every pair apart.
