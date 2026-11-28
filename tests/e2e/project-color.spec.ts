@@ -1,4 +1,4 @@
-// A project's color end to end: each project's window wears one of eight colors (its chip, and a faint tint
+// A project's color end to end: each project's window wears one of twelve colors (its chip, and a faint tint
 // of the header), picked when the window first opens so that open windows differ, changed from the chip's
 // right-click menu or the Project Color… command, remembered across relaunches, and turned off in Settings › Appearance.
 import { _electron as electron, expect, test, type ElectronApplication, type Page } from '@playwright/test';
@@ -32,20 +32,21 @@ test('a project window wears its color; the chip\'s menu and the command change 
     let win = await app.firstWindow();
     await expect(win.locator('.project-chip')).toBeVisible({ timeout: 15000 });
     // Picked when the window opened, saved at once, and worn by the page.
-    await expect.poll(() => worn(win)).toMatch(/^[1-8]$/);
+    await expect.poll(() => worn(win)).toMatch(/^(?:[1-9]|1[0-2])$/);
     const first = Number(await worn(win));
     expect(savedColors(made.home)[root]).toBe(first);
     await look(win, `${SHOTS}/first.png`, { settle: 300 });
 
-    // Right-click the chip: Project Color › the eight colors, the worn one checked.
+    // Right-click the chip: Project Color › the twelve colors around the color wheel, the worn one checked.
     await win.locator('.project-chip .project-reveal').click({ button: 'right' });
     await win.getByRole('menuitem', { name: 'Project Color' }).hover();
     const choices = win.getByRole('menuitemradio');
-    await expect(choices).toHaveCount(8);
+    await expect(choices).toHaveText(['Coral', 'Orange', 'Gold', 'Lime', 'Green', 'Teal', 'Ocean', 'Blue', 'Violet', 'Orchid', 'Rose', 'Stone']);
     await expect(win.getByRole('menuitemradio', { checked: true })).toHaveCount(1);
     await look(win, `${SHOTS}/menu.png`, { settle: 200 });
-    const next = first === 2 ? 6 : 2;
-    await choices.nth(next - 1).click();
+    // One of the new colors: Coral is the 9th.
+    const next = first === 9 ? 10 : 9;
+    await win.getByRole('menuitemradio', { name: next === 9 ? 'Coral' : 'Gold' }).click();
     await expect.poll(() => worn(win)).toBe(String(next));
     expect(savedColors(made.home)[root]).toBe(next);
     // The chip's edge is mixed from the color.
@@ -72,14 +73,14 @@ test('a project window wears its color; the chip\'s menu and the command change 
 
     // The command (menu bar, palette) opens the same choices under the chip.
     await command(app, 'project-color');
-    await expect(win.getByRole('menuitemradio')).toHaveCount(8);
+    await expect(win.getByRole('menuitemradio')).toHaveCount(12);
     await win.keyboard.press('Escape');
     await expect(win.getByRole('menuitemradio')).toHaveCount(0);
     await command(app, 'open-palette');
     await win.locator('.palette-input').fill('>Project color');
     await expect(win.locator('.palette-item.is-active')).toContainText('Project color…');
     await win.keyboard.press('Enter');
-    await expect(win.getByRole('menuitemradio')).toHaveCount(8);
+    await expect(win.getByRole('menuitemradio')).toHaveCount(12);
     await win.keyboard.press('Escape');
 
     await app.close();
@@ -115,7 +116,7 @@ test('two projects open side by side wear different colors', async () => {
     const colors: string[] = [];
     for (const win of app.windows()) {
       await expect(win.locator('.project-chip')).toBeVisible({ timeout: 15000 });
-      await expect.poll(() => worn(win)).toMatch(/^[1-8]$/);
+      await expect.poll(() => worn(win)).toMatch(/^(?:[1-9]|1[0-2])$/);
       colors.push((await worn(win))!);
       await look(win, `${SHOTS}/side-${colors.length}.png`, { settle: 300 });
     }
@@ -146,12 +147,14 @@ test('the welcome window shows each recent project in its color; its right-click
 
     await row('beta').click({ button: 'right' });
     await win.getByRole('menuitem', { name: 'Project Color' }).hover();
-    await expect(win.getByRole('menuitemradio')).toHaveCount(8);
+    await expect(win.getByRole('menuitemradio')).toHaveCount(12);
     await expect(win.getByRole('menuitemradio', { checked: true })).toHaveCount(0);
     await look(win, `${SHOTS}/welcome-menu.png`, { settle: 200 });
-    await win.getByRole('menuitemradio').nth(1).click();
-    await expect(row('beta')).toHaveAttribute('data-project-color', '2');
-    expect(savedColors(made.home)).toEqual({ [a]: 3, [b]: 2 });
+    // The last of the twelve, Stone: its row wears it.
+    await win.getByRole('menuitemradio', { name: 'Stone' }).click();
+    await expect(row('beta')).toHaveAttribute('data-project-color', '12');
+    expect(await row('beta').locator('svg').first().evaluate((el) => getComputedStyle(el).color)).toBe(await token(win, '--ws-12'));
+    expect(savedColors(made.home)).toEqual({ [a]: 3, [b]: 12 });
     await look(win, `${SHOTS}/welcome-changed.png`, { settle: 300 });
   } finally {
     await app.close();

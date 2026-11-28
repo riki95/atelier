@@ -16,8 +16,11 @@
   --waiting: #FBBF24; --working: #60A5FA; --done: #34D399; --error: #FB7185;
   /* What paints the waiting state where it isn't text: dots, rings, bars, edges, tints, glows. */
   --waiting-mark: var(--waiting);
-  /* Workspace colors: a workspace's glyph, head and card; an activity's glyph and band. */
-  --ws-1: #A78BFA; --ws-2: #5EEAD4; --ws-3: #BEF264; --ws-4: #E8A0E8; --ws-5: #818CF8; --ws-6: #FDBA74; --ws-7: #7DD3FC; --ws-8: #FDA4AF;
+  /* Workspace colors: a workspace's glyph, head and card; an activity's glyph and band; a project's window. Twelve, one
+     per hue family, light and dark in turn so that neighbors stay apart for color-blind eyes too. ws-colors.test.ts
+     keeps every pair apart in every theme. */
+  --ws-1: #9A73FE; --ws-2: #4BEFD1; --ws-3: #B4F662; --ws-4: #FCB6F1; --ws-5: #81ADFF; --ws-6: #DF8104; --ws-7: #0BA1B4; --ws-8: #E8519D;
+  --ws-9: #FE908A; --ws-10: #E2C328; --ws-11: #53A950; --ws-12: #85786B;
   --glow: 0 0 0 1px color-mix(in srgb, var(--violet-soft) 45%, transparent), 0 8px 24px -6px color-mix(in srgb, var(--pink) 45%, transparent);
   --shadow-float: 0 24px 60px -12px color-mix(in srgb, var(--shade) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--violet) 8%, transparent);
   /* Header controls and violet tints/edges/glows (bell, notification center, chips). */

@@ -21,7 +21,8 @@
   --tab-crown: linear-gradient(90deg, var(--waiting-mark), var(--violet));
   /* The mark's Λ in Docsy's gold, as in Docsy's own logo. */
   --mark-lambda: #FFB224;
-  --ws-1: #7C3AED; --ws-2: #0F766E; --ws-3: #4D7C0F; --ws-4: #A21CAF; --ws-5: #4338CA; --ws-6: #C2410C; --ws-7: #0369A1; --ws-8: #BE123C;
+  --ws-1: #632DBF; --ws-2: #089782; --ws-3: #62950E; --ws-4: #BF59B3; --ws-5: #4684E5; --ws-6: #B45700; --ws-7: #045D6C; --ws-8: #A1155E;
+  --ws-9: #D15C55; --ws-10: #6F5C01; --ws-11: #115629; --ws-12: #746A60;
   --on-brand: #fff; --text-bright: #222222;
   --backdrop: color-mix(in srgb, var(--abyss) 18%, transparent); --backdrop-strong: color-mix(in srgb, var(--abyss) 26%, transparent); --id-mix: 55%;
   --text-error: #B8282D; --text-error-soft: #9B1C21; --text-error-strong: #821519; --text-violet: #274C94; --text-meet: #274C94;
@@ -73,7 +74,8 @@
   --tab-crown: linear-gradient(90deg, var(--waiting-mark), var(--violet));
   /* The mark's Λ in Docsy's gold, as in Docsy's own logo. */
   --mark-lambda: #FFB224;
-  --ws-1: #A78BFA; --ws-2: #5EEAD4; --ws-3: #BEF264; --ws-4: #E8A0E8; --ws-5: #818CF8; --ws-6: #FDBA74; --ws-7: #7DD3FC; --ws-8: #FDA4AF;
+  --ws-1: #9A73FE; --ws-2: #4BEFD1; --ws-3: #B4F662; --ws-4: #FCB6F1; --ws-5: #81ADFF; --ws-6: #DF8104; --ws-7: #0BA1B4; --ws-8: #E8519D;
+  --ws-9: #FE908A; --ws-10: #E2C328; --ws-11: #53A950; --ws-12: #85786B;
   --on-brand: #fff; --text-bright: #fff;
   --text-error: #FF8A8D; --text-error-soft: #FFB3B5; --text-error-strong: #FFD6D7; --text-violet: #C9D8F5; --text-meet: #D3E0F7;
   --abyss: #030812;

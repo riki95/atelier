@@ -7,7 +7,7 @@ import { useApp } from './store';
 import { t } from './i18n/en';
 import { kbd } from './kbd';
 import { newTerminalIn } from './launch';
-import { MAX_ACTIVITIES, activitiesOf, memberOf, workspaceKey, workspaceOf, workspacesOf, WS_COLORS, type Workspace } from './workspaces';
+import { MAX_ACTIVITIES, activitiesOf, memberOf, workspaceKey, workspaceOf, workspacesOf, WS_COLOR_ORDER, type Workspace } from './workspaces';
 import { cardOf, wsActivityCard, wsColorVar } from './workspace-view';
 
 const st = () => useApp.getState();
@@ -33,8 +33,8 @@ export function workspaceMenu(id: string): MenuItem[] {
   // "Here": the workspace comes to the front first, so what starts belongs to it.
   const here = (fn: () => void) => () => { st().switchWorkspace(id); fn(); };
   const last = wss.length <= 1;
-  const colors: MenuItem[] = Array.from({ length: WS_COLORS }, (_, n) => ({
-    id: `ws-color:${n + 1}`, label: t.ws.colors[n]!, swatch: wsColorVar(n + 1), checked: w.color === n + 1, radio: true as const, run: () => st().recolorWorkspace(id, n + 1)
+  const colors: MenuItem[] = WS_COLOR_ORDER.map((c) => ({
+    id: `ws-color:${c}`, label: t.ws.colors[c - 1]!, swatch: wsColorVar(c), checked: w.color === c, radio: true as const, run: () => st().recolorWorkspace(id, c)
   }));
   return [
     { id: 'ws-rename', label: t.ws.rename, icon: 'edit', run: () => st().setWsRenaming(id) },
@@ -102,8 +102,8 @@ export function wsActivityMenu(id: string): MenuItem[] {
     const full = activitiesOf(ws, w.id).length >= MAX_ACTIVITIES;
     return { id: `wsa-move:${w.id}`, label: w.name, icon: 'workspace', ...(full ? { disabled: true, tip: t.wsAct.full(w.name) } : {}), run: () => st().moveWsActivity(id, w.id) };
   });
-  const colors: MenuItem[] = Array.from({ length: WS_COLORS }, (_, n) => ({
-    id: `wsa-color:${n + 1}`, label: t.ws.colors[n]!, swatch: wsColorVar(n + 1), checked: a.color === n + 1, radio: true as const, run: () => st().recolorWorkspace(id, n + 1)
+  const colors: MenuItem[] = WS_COLOR_ORDER.map((c) => ({
+    id: `wsa-color:${c}`, label: t.ws.colors[c - 1]!, swatch: wsColorVar(c), checked: a.color === c, radio: true as const, run: () => st().recolorWorkspace(id, c)
   }));
   return [
     { id: 'wsa-new-session', label: t.ws.newSessionHere, icon: 'sparkle', hint: kbd('⌘N'), run: here(() => st().setNewSessionOpen(true)) },

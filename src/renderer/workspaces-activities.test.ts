@@ -127,16 +127,20 @@ describe('creating an activity', () => {
     expect(colorsOf(s)).toEqual({ A: 1, B: 3, a1: 2, a2: 4, b1: 5 });
   });
   test('every color worn: one no workspace and no sibling wears, never another workspace\'s', () => {
-    const others = [3, 4, 5, 6, 7, 8].map((c) => act(`b${c}`, 'B', `b${c}`, c));
+    const others = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((c) => act(`b${c}`, 'B', `b${c}`, c));
     const s: WorkspacesState = { on: true, active: 'A', list: [ws('A', 'Auth', 1), ws('B', 'Billing', 2), ...others], members: {}, ownColors: true };
     // 2 is Billing's: 3, worn only by an activity of another workspace.
     expect(createWsActivity(s, 'A', 'SSO', 'a1')!.list.at(-1)!.color).toBe(3);
   });
-  test('past seven activities: round again through the other colors from after its workspace\'s, never its own', () => {
-    let s: WorkspacesState = { on: true, active: 'A', list: [ws('A', 'Auth', 1), ...[2, 3, 4, 5, 6, 7, 8].map((c) => act(`a${c}`, 'A', `n${c}`, c))], members: {}, ownColors: true };
-    s = createWsActivity(s, 'A', 'Eighth', 'e8')!;
+  test('with eight colors worn, a new activity takes the ninth, nobody\'s yet', () => {
+    const s: WorkspacesState = { on: true, active: 'A', list: [ws('A', 'Auth', 1), ...[2, 3, 4, 5, 6, 7, 8].map((c) => act(`a${c}`, 'A', `n${c}`, c))], members: {}, ownColors: true };
+    expect(createWsActivity(s, 'A', 'Eighth', 'e8')!.list.at(-1)!.color).toBe(9);
+  });
+  test('past eleven activities: round again through the other colors from after its workspace\'s, never its own', () => {
+    let s: WorkspacesState = { on: true, active: 'A', list: [ws('A', 'Auth', 1), ...[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((c) => act(`a${c}`, 'A', `n${c}`, c))], members: {}, ownColors: true };
+    s = createWsActivity(s, 'A', 'Twelfth', 'e12')!;
     expect(s.list.at(-1)!.color).toBe(2);
-    s = createWsActivity(s, 'A', 'Ninth', 'e9')!;
+    s = createWsActivity(s, 'A', 'Thirteenth', 'e13')!;
     expect(s.list.at(-1)!.color).toBe(3);
   });
   test('a new workspace\'s color: one nothing wears yet, activities and those kept aside included; else one no workspace wears', () => {
@@ -146,7 +150,7 @@ describe('creating an activity', () => {
     const parked = { ...mixed(), parked: { list: [act('p1', 'A', 'Parked', 6)], members: {}, joined: {} } };
     expect(newWorkspaceColor(parked)).toBe(7);
     // Every color worn, three by workspaces: the first no workspace wears.
-    const full: WorkspacesState = { on: true, active: 'A', list: [ws('A', 'Auth', 1), ws('B', 'Billing', 2), ws('C', 'Core', 4), ...[3, 5, 6, 7, 8].map((c) => act(`a${c}`, 'A', `n${c}`, c))], members: {}, ownColors: true };
+    const full: WorkspacesState = { on: true, active: 'A', list: [ws('A', 'Auth', 1), ws('B', 'Billing', 2), ws('C', 'Core', 4), ...[3, 5, 6, 7, 8, 9, 10, 11, 12].map((c) => act(`a${c}`, 'A', `n${c}`, c))], members: {}, ownColors: true };
     expect(newWorkspaceColor(full)).toBe(3);
   });
   test('recoloring a workspace leaves its activities\' colors; recoloring an activity changes it alone', () => {

@@ -5,7 +5,7 @@ import { t } from './i18n/en';
 import { inboxSection } from './inbox';
 import { resumablesFor } from './selectors';
 
-/** A workspace's color as a theme token (theme.css `--ws-1…8`): components never hold the hex. */
+/** A workspace's color as a theme token (theme.css `--ws-1…12`): components never hold the hex. */
 export const wsColorVar = (color: number): string => `var(--ws-${color})`;
 
 /** The Go menu's workspace list (activities aside) and the one its check marks: the workspace in front, whichever of its places is. */

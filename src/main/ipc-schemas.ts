@@ -4,6 +4,7 @@ import { MAX_RELAY_URL, relayBase } from '@shared/remote';
 import { SETTINGS_FIELDS, isDockerEngineSetting, isSettingPath, isSettingText, type Field } from '@shared/settings';
 import { isFontFamily } from '@shared/terminal-font';
 import { normalizeCustom } from '@shared/redis';
+import { PROJECT_COLOR_COUNT } from '@shared/project-color';
 import { isHiddenRel } from '@shared/hidden-repos';
 import { isProjectColors, type ProjectColors } from '@shared/project-color';
 import {
@@ -312,7 +313,7 @@ export const remoteLayoutSchema = z.object({
     active: placeId,
     activities: z.boolean(),
     places: z.array(z.object({
-      id: placeId, name: shownName(60), color: z.number().int().min(1).max(8),
+      id: placeId, name: shownName(60), color: z.number().int().min(1).max(PROJECT_COLOR_COUNT),
       folder: shownName(255).refine((s) => !/[/\\]/.test(s), 'a name, never a path').optional(), parent: placeId.optional(), open: z.boolean()
     }).strict()).max(500),
     members: z.record(rowId, placeId).refine((m) => Object.keys(m).length <= 4000, 'too many members')

@@ -7,7 +7,7 @@ import { radioNext } from '../radio';
 import { t } from '../i18n/en';
 import { kbd } from '../kbd';
 import { useApp } from '../store';
-import { MAX_NAME, MAX_WORKSPACES, newWorkspaceColor, workspacesOf, WS_COLORS } from '../workspaces';
+import { MAX_NAME, MAX_WORKSPACES, newWorkspaceColor, workspacesOf, WS_COLOR_ORDER } from '../workspaces';
 import { wsColorVar } from '../workspace-view';
 import { Icon } from './Icon';
 import { WorkspaceGlyph } from './WorkspaceGlyph';
@@ -64,7 +64,7 @@ export function NewWorkspaceSheet() {
     } else if (start === 'terminal') void newTerminalIn();
   };
   const pickFolder = (c: FolderChoice | undefined) => { if (!c) return; setFolder(c); setPicking(false); setQuery(''); nameEl.current?.focus(); };
-  const colors = Array.from({ length: WS_COLORS }, (_, i) => i + 1);
+  const colors = WS_COLOR_ORDER;
 
   return (
     <div className="palette-backdrop" onMouseDown={close}>
@@ -85,7 +85,7 @@ export function NewWorkspaceSheet() {
           <div className="nws-row">
             <span className="nws-label" id="nws-color">{t.ws.color}</span>
             <div className="nws-swatches" role="radiogroup" aria-labelledby="nws-color"
-              onKeyDown={(e) => { const n = radioNext(colors, color, e.key); if (n !== null) { e.preventDefault(); setColor(n); (e.currentTarget.children[n - 1] as HTMLElement | undefined)?.focus(); } }}>
+              onKeyDown={(e) => { const n = radioNext(colors, color, e.key); if (n !== null) { e.preventDefault(); setColor(n); (e.currentTarget.children[colors.indexOf(n)] as HTMLElement | undefined)?.focus(); } }}>
               {colors.map((c) => (
                 <button key={c} type="button" role="radio" aria-checked={c === color} aria-label={t.ws.colors[c - 1]} data-tip={t.ws.colors[c - 1]} tabIndex={c === color ? 0 : -1}
                   className={`nws-swatch ${c === color ? 'is-on' : ''}`} style={{ '--sw': wsColorVar(c) } as React.CSSProperties} onClick={() => setColor(c)} />

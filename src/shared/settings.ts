@@ -65,7 +65,7 @@ export interface Settings {
   /** Each project's window wears its color (chip, a faint header tint), to tell windows apart. */
   projectTint: boolean;
   /**
-   * The color (1…8, theme.css `--ws-N`) of each project, by root, the most recently set last. A change names only the
+   * The color (1…12, theme.css `--ws-N`) of each project, by root, the most recently set last. A change names only the
    * roots it colors and merges into these (applyPatch).
    */
   projectColors: ProjectColors;

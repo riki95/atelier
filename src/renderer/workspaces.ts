@@ -9,13 +9,19 @@ import { mapLayoutKeys } from './split';
 import { spaceOf } from './spaces';
 import { inboxSection } from './inbox';
 import { t } from './i18n/en';
+import { PROJECT_COLOR_COUNT } from '@shared/project-color';
 
 export const MAX_WORKSPACES = 20;
 /** Activities one workspace may hold. */
 export const MAX_ACTIVITIES = 20;
 export const MAX_NAME = 60;
-/** Workspace colors are tokens `--ws-1…--ws-8` (theme.css). */
-export const WS_COLORS = 8;
+/** Workspace colors are tokens `--ws-1…--ws-12` (theme.css), the same twelve a project's window wears. */
+export const WS_COLORS = PROJECT_COLOR_COUNT;
+/**
+ * The colors as pickers list them, around the color wheel (Coral, Orange, Gold … Rose, then Stone), so one is easy to
+ * find. The numbers stay what is saved and sent; automatic picks go by number, whose neighbours are far apart.
+ */
+export const WS_COLOR_ORDER: readonly number[] = [9, 6, 10, 3, 11, 2, 7, 5, 1, 4, 8, 12];
 /** Key lengths a saved state may hold (a revision key carries a commit id and a relative path). */
 const MAX_KEY = 4200;
 

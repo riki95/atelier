@@ -51,6 +51,10 @@
 :root[data-project-color="6"] { --proj: var(--ws-6); }
 :root[data-project-color="7"] { --proj: var(--ws-7); }
 :root[data-project-color="8"] { --proj: var(--ws-8); }
+:root[data-project-color="9"] { --proj: var(--ws-9); }
+:root[data-project-color="10"] { --proj: var(--ws-10); }
+:root[data-project-color="11"] { --proj: var(--ws-11); }
+:root[data-project-color="12"] { --proj: var(--ws-12); }
 :root[data-project-color] .header { background: color-mix(in srgb, var(--proj) 5%, transparent); }
 :root[data-project-color] .project-chip { border-color: color-mix(in srgb, var(--proj) 45%, var(--line)); background: color-mix(in srgb, var(--proj) 12%, var(--bg-control)); }
 :root[data-project-color] .project-chip:has(button.project-reveal:hover) { border-color: color-mix(in srgb, var(--proj) 70%, var(--line)); background: color-mix(in srgb, var(--proj) 18%, var(--bg-control)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--proj) 18%, transparent); }

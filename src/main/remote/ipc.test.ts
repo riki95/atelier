@@ -127,7 +127,9 @@ describe('a project window\'s layout for the phones', () => {
       { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], folder: '/work/app/api' }] } },
       { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], folder: 'a\\b' }] } },
       { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], name: 'two\nlines' }] } },
-      { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], color: 9 }] } },
+      { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], color: 13 }] } },
+      { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], color: 0 }] } },
+      { ...layout, workspaces: { ...ws, places: [{ ...ws.places[0], color: 2.5 }] } },
       { ...layout, pins: ['../x'] },
       { ...layout, pins: Array.from({ length: 1001 }, (_, i) => `t${i}`) },
       { ...layout, order: { sessions: [], terminals: [], extra: [] } },
@@ -154,6 +156,15 @@ describe('a phone\'s changes to the places, in the project\'s main window', () =
     expect(() => call(IPC.remotePlacesReady, { root: '/work/other' })).toThrow();
     expect(() => setup(false).call(IPC.remotePlacesReady)).toThrow(/unauthorized/);
     expect(places.takeHeld).toHaveBeenCalledTimes(1);
+  });
+
+  test('places wear any of the twelve colors: a layout and a change\'s answer with colors 9…12 go through', async () => {
+    const { hub, call } = setup();
+    const twelve = { ...layout, workspaces: { ...layout.workspaces, places: [9, 10, 11, 12].map((color, i) => ({ id: `w${i + 1}`, name: `W${i + 1}`, color, open: true })) } };
+    void call(IPC.remoteLayout, twelve);
+    expect(hub.layoutChanged).toHaveBeenCalledWith('/work/app', twelve);
+    await call(IPC.remotePlaceDone, { id: 1, result: { ok: true, place: 'w4' }, layout: twelve });
+    expect(hub.layoutChanged).toHaveBeenLastCalledWith('/work/app', twelve);
   });
 
   test('done: the sidebar\'s arrangement after the change is kept first (the phone\'s next layout shows it), then the answer', async () => {

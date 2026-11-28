@@ -85,8 +85,9 @@ describe('creating, renaming, colors, order', () => {
   });
   test('nextColor: the first one no workspace uses, then round again', () => {
     expect(nextColor(two().list)).toBe(3);
-    const all = Array.from({ length: 8 }, (_, i) => ({ ...two().list[0]!, id: `c${i}`, color: i + 1 }));
+    const all = Array.from({ length: 12 }, (_, i) => ({ ...two().list[0]!, id: `c${i}`, color: i + 1 }));
     expect(nextColor(all)).toBe(1);
+    expect(nextColor(all.slice(0, 8))).toBe(9);
   });
   test('recolor keeps colors in range', () => {
     expect(recolor(two(), 'A', 5).list[0]!.color).toBe(5);

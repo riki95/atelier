@@ -14,7 +14,7 @@ export const LOOK_TOKENS: readonly string[] = [
   // The brand is the theme's own fill, not always the middle of violet and pink (Ember's is its orange alone).
   'violet', 'violet-soft', 'violet-light', 'pink', 'brand', 'on-brand',
   'waiting', 'working', 'done', 'error',
-  ...numbered('ws', 1, 8), ...numbered('person', 1, 8),
+  ...numbered('ws', 1, 12), ...numbered('person', 1, 8),
   'worktree', 'worktree-text', 'abyss',
   'term-bg', 'term-fg', 'term-cursor', 'term-sel', ...numbered('ansi', 0, 15)
 ];

@@ -334,28 +334,29 @@ test('activities: each in a color of its own, on an edgeless band apart from the
     await away(win);
     await look(win.locator('.sidebar'), `${SHOTS}/ws-activities-colors.png`);
 
-    // Color › on SSO's head: the eight swatches, Teal (its own) ringed and checked; Color shows it too.
+    // Color › on SSO's head: the twelve swatches around the color wheel, Teal (its own) ringed and checked; Color shows
+    // it too.
     await sso.locator('.wsa-head').click({ button: 'right' });
     const color = win.getByRole('menuitem', { name: 'Color' });
     await expect(color.locator('.ctx-swatch')).toHaveCount(1);
     await color.hover();
     const sub = win.locator('.ctx-submenu');
-    await expect(sub.locator('[role="menuitemradio"]')).toHaveText(['Violet', 'Teal', 'Lime', 'Orchid', 'Indigo', 'Apricot', 'Sky', 'Rose']);
-    await expect(sub.locator('.ctx-swatch')).toHaveCount(8);
+    await expect(sub.locator('[role="menuitemradio"]')).toHaveText(['Coral', 'Orange', 'Gold', 'Lime', 'Green', 'Teal', 'Ocean', 'Blue', 'Violet', 'Orchid', 'Rose', 'Stone']);
+    await expect(sub.locator('.ctx-swatch')).toHaveCount(12);
     const teal = sub.getByRole('menuitemradio', { name: 'Teal' });
     await expect(teal).toHaveAttribute('aria-checked', 'true');
     await expect(teal.locator('.ctx-swatch')).toHaveClass(/is-on/);
     await expect(teal.locator('.ctx-check')).toBeVisible();
     await look(win, `${SHOTS}/ws-activities-color-menu.png`, { settle: 300 });
-    // Sky: SSO alone changes.
-    await sub.getByRole('menuitemradio', { name: 'Sky' }).click();
+    // Ocean: SSO alone changes.
+    await sub.getByRole('menuitemradio', { name: 'Ocean' }).click();
     await expect.poll(() => style(sso.locator('.wsa-glyph'), 'color')).toBe(await token(win, '--ws-7'));
     expect(await style(reset.locator('.wsa-glyph'), 'color')).toBe(await token(win, '--ws-3'));
 
     // The workspace recolored from its own Color ›: its activities keep theirs.
     await group(win, 'Workspace 1').locator('.ws-head').click({ button: 'right' });
     await win.getByRole('menuitem', { name: 'Color' }).hover();
-    await win.locator('.ctx-submenu').getByRole('menuitemradio', { name: 'Apricot' }).click();
+    await win.locator('.ctx-submenu').getByRole('menuitemradio', { name: 'Orange' }).click();
     await expect(group(win, 'Workspace 1')).toHaveAttribute('style', /--ws-c: var\(--ws-6\)/);
     expect(await style(sso.locator('.wsa-glyph'), 'color')).toBe(await token(win, '--ws-7'));
     expect(await style(reset.locator('.wsa-glyph'), 'color')).toBe(await token(win, '--ws-3'));

@@ -2,7 +2,7 @@ import { expect, test } from 'vitest';
 import { mergeProjectColors, normalizeProjectColors, pickProjectColor, PROJECT_COLOR_COUNT, PROJECT_COLORS_MAX, projectColorOf, projectColorOnOpen } from './project-color';
 import { applyPatch, DEFAULT_SETTINGS, normalizeSettings } from './settings';
 
-// A project's color: one of the eight workspace hues, kept by project root, worn by the project's window so several
+// A project's color: one of the twelve workspace hues, kept by project root, worn by the project's window so several
 // windows side by side can be told apart at a glance.
 
 test('a project keeps the color it has', () => {
@@ -12,10 +12,11 @@ test('a project keeps the color it has', () => {
 test('a new project takes a color no open window wears', () => {
   const colors = { '/work/a': 1, '/work/b': 2, '/work/c': 3 };
   const got = pickProjectColor(colors, ['/work/a', '/work/b', '/work/c'], '/work/new');
-  expect([4, 5, 6, 7, 8]).toContain(got);
+  expect([4, 5, 6, 7, 8, 9, 10, 11, 12]).toContain(got);
 });
 
-test('eight projects opened one after the other wear eight different colors', () => {
+test('twelve projects opened one after the other wear twelve different colors', () => {
+  expect(PROJECT_COLOR_COUNT).toBe(12);
   let colors: Record<string, number> = {};
   const open: string[] = [];
   for (let i = 0; i < PROJECT_COLOR_COUNT; i++) {
@@ -24,6 +25,11 @@ test('eight projects opened one after the other wear eight different colors', ()
     open.push(root);
   }
   expect(new Set(Object.values(colors)).size).toBe(PROJECT_COLOR_COUNT);
+});
+
+test('the saved colors are 1 to 12: an older file\'s 1 to 8 load as they are, anything else is dropped', () => {
+  const saved = { '/work/a': 1, '/work/b': 8, '/work/c': 9, '/work/d': 12, '/work/e': 13, '/work/f': 0, '/work/g': 2.5 };
+  expect(normalizeProjectColors(saved)).toEqual({ '/work/a': 1, '/work/b': 8, '/work/c': 9, '/work/d': 12 });
 });
 
 test('what the open windows wear counts before what the closed projects have', () => {
@@ -35,9 +41,9 @@ test('what the open windows wear counts before what the closed projects have', (
 });
 
 test('among the colors free in the open windows, the one fewest known projects have comes first', () => {
-  // Nothing open wears 2…8; closed projects already have 2…7: 8 is the rarest.
-  const colors = { '/o': 1, '/a': 2, '/b': 3, '/c': 4, '/d': 5, '/e': 6, '/f': 7 };
-  expect(pickProjectColor(colors, ['/o'], '/new')).toBe(8);
+  // Nothing open wears 2…12; closed projects already have 2…11: 12 is the rarest.
+  const colors = { '/o': 1, '/a': 2, '/b': 3, '/c': 4, '/d': 5, '/e': 6, '/f': 7, '/g': 8, '/h': 9, '/i': 10, '/j': 11 };
+  expect(pickProjectColor(colors, ['/o'], '/new')).toBe(12);
 });
 
 test('with nothing to tell colors apart, a folder always gets the same one', () => {
@@ -47,8 +53,8 @@ test('with nothing to tell colors apart, a folder always gets the same one', () 
   expect(a).toBeLessThanOrEqual(PROJECT_COLOR_COUNT);
 });
 
-test('the saved colors keep absolute folders with a color from 1 to 8, nothing else', () => {
-  expect(normalizeProjectColors({ '/work/a': 3, 'relative': 2, '/work/b': 9, '/work/c': 0, '/work/d': 1.5, '/work/e': '2' })).toEqual({ '/work/a': 3 });
+test('the saved colors keep absolute folders with a color from 1 to 12, nothing else', () => {
+  expect(normalizeProjectColors({ '/work/a': 3, 'relative': 2, '/work/b': 13, '/work/c': 0, '/work/d': 1.5, '/work/e': '2' })).toEqual({ '/work/a': 3 });
   for (const bad of [null, undefined, 3, 'x', [1, 2]]) expect(normalizeProjectColors(bad)).toEqual({});
 });
 

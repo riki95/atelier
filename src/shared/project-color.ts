@@ -1,9 +1,9 @@
-// A project's color: one of the eight workspace hues (theme.css `--ws-1…8`), kept by project root in the settings and
+// A project's color: one of the twelve workspace hues (theme.css `--ws-1…12`), kept by project root in the settings and
 // worn by the project's window (its chip, a faint tint of the header) so that several windows side by side can be
 // told apart at a glance. Pure.
 import { isAbsPath } from './paths';
 
-export const PROJECT_COLOR_COUNT = 8;
+export const PROJECT_COLOR_COUNT = 12;
 /** The most projects whose color is remembered; past it, the ones colored or opened longest ago go. */
 export const PROJECT_COLORS_MAX = 300;
 const MAX_ROOT = 1024;
@@ -20,7 +20,7 @@ export function isProjectColors(v: unknown): v is ProjectColors {
   return entries.length <= PROJECT_COLORS_MAX && entries.every(([root, c]) => isRoot(root) && isColor(c));
 }
 
-/** From the file (whatever it holds) to valid colors: absolute folders with a color from 1 to 8, the latest kept. */
+/** From the file (whatever it holds) to valid colors: absolute folders with a color from 1 to 12, the latest kept. */
 export function normalizeProjectColors(raw: unknown): ProjectColors {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
   const ok = Object.entries(raw as Record<string, unknown>).filter((e): e is [string, number] => isRoot(e[0]) && isColor(e[1]));

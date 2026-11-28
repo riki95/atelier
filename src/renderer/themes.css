@@ -76,7 +76,8 @@
      brightened on hover. Links lavender: a warm one read as error text. */
   --violet: #DC6228; --pink: #E8457E; --violet-soft: #F59A5E; --violet-light: #FDBA8C; --link: #C7B2F0;
   --waiting: #FCD34D; --working: #7DD3FC; --done: #86E0A8; --error: #FB7185;
-  --ws-1: #A78BFA; --ws-2: #5EEAD4; --ws-3: #BEF264; --ws-4: #E8A0E8; --ws-5: #818CF8; --ws-6: #FDBA74; --ws-7: #7DD3FC; --ws-8: #FDA4AF;
+  --ws-1: #9A73FE; --ws-2: #4BEFD1; --ws-3: #B4F662; --ws-4: #FCB6F1; --ws-5: #81ADFF; --ws-6: #DF8104; --ws-7: #0BA1B4; --ws-8: #E8519D;
+  --ws-9: #FE908A; --ws-10: #E2C328; --ws-11: #53A950; --ws-12: #85786B;
   --on-brand: #fff; --text-bright: #fff;
   --text-error: #FDA4AF; --text-error-soft: #FECDD3; --text-error-strong: #FFE4E6; --text-violet: #FFD9C2; --text-meet: #FFD3B8;
   --abyss: #060403;
@@ -118,7 +119,8 @@
   /* A deeper teal than #14B8A6, so white on a brand fill keeps 3:1 even brightened on hover. */
   --violet: #0D9488; --pink: #6366F1; --violet-soft: #2DD4BF; --violet-light: #5EEAD4; --link: #7DD3FC;
   --waiting: #FBBF24; --working: #60A5FA; --done: #4ADE80; --error: #FB7185;
-  --ws-1: #A78BFA; --ws-2: #5EEAD4; --ws-3: #BEF264; --ws-4: #E8A0E8; --ws-5: #818CF8; --ws-6: #FDBA74; --ws-7: #7DD3FC; --ws-8: #FDA4AF;
+  --ws-1: #9A73FE; --ws-2: #4BEFD1; --ws-3: #B4F662; --ws-4: #FCB6F1; --ws-5: #81ADFF; --ws-6: #DF8104; --ws-7: #0BA1B4; --ws-8: #E8519D;
+  --ws-9: #FE908A; --ws-10: #E2C328; --ws-11: #53A950; --ws-12: #85786B;
   --on-brand: #fff; --text-bright: #fff;
   --text-error: #FDA4AF; --text-error-soft: #FECDD3; --text-error-strong: #FFE4E6; --text-violet: #B2F5EA; --text-meet: #CCFBF1;
   --abyss: #010406;
@@ -160,7 +162,8 @@
   --text: #1A1830; --text-2: #3B3858; --text-3: #5E5B80; --text-4: #7A7798;
   --violet: #7C3AED; --pink: #DB2777; --violet-soft: #8B5CF6; --violet-light: #6D28D9; --link: #4F46E5;
   --waiting: #B45309; --working: #2563EB; --done: #047857; --error: #BE123C;
-  --ws-1: #7C3AED; --ws-2: #0F766E; --ws-3: #4D7C0F; --ws-4: #A21CAF; --ws-5: #4338CA; --ws-6: #C2410C; --ws-7: #0369A1; --ws-8: #BE123C;
+  --ws-1: #632DBF; --ws-2: #089782; --ws-3: #62950E; --ws-4: #BF59B3; --ws-5: #4684E5; --ws-6: #B45700; --ws-7: #045D6C; --ws-8: #A1155E;
+  --ws-9: #D15C55; --ws-10: #6F5C01; --ws-11: #115629; --ws-12: #746A60;
   --on-brand: #fff; --text-bright: #1A1830;
   --backdrop: color-mix(in srgb, var(--abyss) 18%, transparent); --backdrop-strong: color-mix(in srgb, var(--abyss) 26%, transparent); --id-mix: 55%;
   --text-error: #BE123C; --text-error-soft: #9F1239; --text-error-strong: #881337; --text-violet: #5B21B6; --text-meet: #5B21B6;
@@ -208,7 +211,8 @@
   --text: #EDEDEE; --text-2: #C2C2C5; --text-3: #98989D; --text-4: #707076;
   --violet: #EDEDEE; --pink: #EDEDEE; --violet-soft: #EDEDEE; --violet-light: #EDEDEE; --link: #A9B8C8;
   --waiting: #D9B061; --working: #8AA8CF; --done: #7DBF9E; --error: #D98A93;
-  --ws-1: #B6A6E0; --ws-2: #8CCFC4; --ws-3: #B8CF8A; --ws-4: #D3A9D3; --ws-5: #9AA3D9; --ws-6: #D9B48C; --ws-7: #93BFD9; --ws-8: #D9A0A8;
+  --ws-1: #A398D2; --ws-2: #97D8C8; --ws-3: #BEDCA1; --ws-4: #DFBCD8; --ws-5: #9DB3DC; --ws-6: #CC9C73; --ws-7: #76A9B2; --ws-8: #CC8BA6;
+  --ws-9: #DEA6A2; --ws-10: #CFC185; --ws-11: #86AE83; --ws-12: #98918A;
   --on-brand: #111112; --text-bright: #EDEDEE;
   --text-error: #E3A1A8; --text-error-soft: #EBC0C5; --text-error-strong: #F3DADD; --text-violet: #D6D6D8; --text-meet: #D6D6D8;
   --abyss: #000;
@@ -262,7 +266,8 @@
   --text: #161617; --text-2: #3A3A3D; --text-3: #5E5E63; --text-4: #808085;
   --violet: #161617; --pink: #161617; --violet-soft: #161617; --violet-light: #161617; --link: #2F62A3;
   --waiting: #9A6200; --working: #2F62A3; --done: #2D7A55; --error: #B3404D;
-  --ws-1: #7C3AED; --ws-2: #0F766E; --ws-3: #4D7C0F; --ws-4: #A21CAF; --ws-5: #4338CA; --ws-6: #C2410C; --ws-7: #0369A1; --ws-8: #BE123C;
+  --ws-1: #632DBF; --ws-2: #089782; --ws-3: #62950E; --ws-4: #BF59B3; --ws-5: #4684E5; --ws-6: #B45700; --ws-7: #045D6C; --ws-8: #A1155E;
+  --ws-9: #D15C55; --ws-10: #6F5C01; --ws-11: #115629; --ws-12: #746A60;
   --on-brand: #FFFFFF; --text-bright: #161617;
   --backdrop: color-mix(in srgb, var(--abyss) 14%, transparent); --backdrop-strong: color-mix(in srgb, var(--abyss) 22%, transparent);
   --text-error: #B3404D; --text-error-soft: #8F2F3A; --text-error-strong: #7A2530; --text-violet: #3A3A3D; --text-meet: #3A3A3D;

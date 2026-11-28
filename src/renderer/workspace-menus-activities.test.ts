@@ -78,13 +78,13 @@ test('the activity\'s menu: new here, rename, Color ›, Move to Workspace ›, 
   expect(st().ws!.list.find((w) => w.id === 'a1')!.parent).toBe('B');
 });
 
-test('Color ›: the eight swatches, the activity\'s own checked; picking one recolors it alone', () => {
+test('Color ›: the twelve swatches in hue order, the activity\'s own checked; picking one recolors it alone', () => {
   const color = item(wsActivityMenu('a1'), 'wsa-color')!;
   expect(color.swatch).toBe('var(--ws-3)');
   const sub = color.submenu!;
-  expect(sub.map((i) => i !== 'sep' && i.swatch)).toEqual([1, 2, 3, 4, 5, 6, 7, 8].map((c) => `var(--ws-${c})`));
+  expect(sub.map((i) => i !== 'sep' && i.swatch)).toEqual([9, 6, 10, 3, 11, 2, 7, 5, 1, 4, 8, 12].map((c) => `var(--ws-${c})`));
   expect(sub.filter((i) => i !== 'sep' && i.checked).map((i) => i !== 'sep' && i.id)).toEqual(['wsa-color:3']);
-  (sub[6] as Entry).run();
+  (sub.find((i) => i !== 'sep' && i.id === 'wsa-color:7') as Entry).run();
   const colors = Object.fromEntries(st().ws!.list.map((w) => [w.id, w.color]));
   expect(colors).toEqual({ A: 1, B: 2, a1: 7, a2: 4 });
 });

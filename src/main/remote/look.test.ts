@@ -20,7 +20,7 @@ describe('the themes a phone gets', () => {
   });
 
   test('the tokens, interface then terminal, in this order', () => {
-    const n = (p: string) => Array.from({ length: p === 'ansi' ? 16 : 8 }, (_, i) => `${p}-${p === 'ansi' ? i : i + 1}`);
+    const n = (p: string) => Array.from({ length: p === 'ansi' ? 16 : p === 'ws' ? 12 : 8 }, (_, i) => `${p}-${p === 'ansi' ? i : i + 1}`);
     expect(LOOK_TOKENS).toEqual([
       'bg-0', 'bg-1', 'bg-2', 'bg-3', 'bg-float', 'bg-sel', 'line', 'line-soft', 'line-strong', 'text', 'text-2', 'text-3', 'text-4', 'text-error', 'link',
       'violet', 'violet-soft', 'violet-light', 'pink', 'brand', 'on-brand', 'waiting', 'working', 'done', 'error', ...n('ws'), ...n('person'),

@@ -94,6 +94,14 @@ test('workspaces: off by default; on; a new one with its own tabs; switching by 
     await sheet.locator('.nws-input').first().fill('Billing');
     await still(win);
     await look(sheet, `${SHOTS}/workspaces-sheet.png`);
+    // The colors go around the wheel: an arrow moves the choice and the focus together (Lime, then Green); then back
+    // to the one offered, Teal.
+    const swatch = (name: string) => sheet.getByRole('radio', { name });
+    await swatch('Lime').click();
+    await swatch('Lime').press('ArrowRight');
+    await expect(swatch('Green')).toHaveAttribute('aria-checked', 'true');
+    await expect(swatch('Green')).toBeFocused();
+    await swatch('Teal').click();
     await sheet.locator('.nws-input').first().press('Enter');
     await expect(sheet).toHaveCount(0);
     await expect(front(win)).toContainText('Billing');

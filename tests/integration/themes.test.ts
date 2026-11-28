@@ -4,6 +4,7 @@ import { expect, test } from 'vitest';
 import { contrast } from '../../src/renderer/contrast';
 import { parseThemeCss, resolveToken } from '../../src/shared/theme-resolve';
 import { THEMES } from '../../src/shared/themes';
+import { PROJECT_COLOR_COUNT } from '../../src/shared/project-color';
 import { xtermTheme } from '../../src/renderer/terminal/xtermTheme';
 
 // Themes: every theme sets every palette token, and reads.
@@ -78,9 +79,9 @@ test.each(THEMES.map((t) => t.id))('%s reads: text, states, brand, terminal, cod
   }
 });
 
-// Workspace colors: a glyph, a name tint and a card's edge on the sidebar read in every theme.
+// Workspace colors (all twelve): a glyph, a name tint and a card's edge on the sidebar read in every theme.
 test.each(THEMES.map((t) => t.id))('%s: workspace colors read on the sidebar and the content', (id) => {
-  for (let n = 1; n <= 8; n++) for (const bg of ['--bg-1', '--bg-2']) expect(c(id, `--ws-${n}`, bg), `--ws-${n} on ${bg}`).toBeGreaterThanOrEqual(3);
+  for (let n = 1; n <= PROJECT_COLOR_COUNT; n++) for (const bg of ['--bg-1', '--bg-2']) expect(c(id, `--ws-${n}`, bg), `--ws-${n} on ${bg}`).toBeGreaterThanOrEqual(3);
 });
 
 // File icons (Seti): Aurora keeps them; every theme's read on its own ground.

@@ -1621,7 +1621,7 @@ const strings = {
     workspaces: 'Workspaces',
     rename: 'Rename Workspace…',
     color: 'Color',
-    colors: ['Violet', 'Teal', 'Lime', 'Orchid', 'Indigo', 'Apricot', 'Sky', 'Rose'],
+    colors: ['Violet', 'Teal', 'Lime', 'Orchid', 'Blue', 'Orange', 'Ocean', 'Rose', 'Coral', 'Gold', 'Green', 'Stone'],
     newSessionHere: 'New Session Here',
     newTerminalHere: 'New Terminal Here',
     moveUp: 'Move Up',

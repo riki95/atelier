@@ -32,6 +32,15 @@ test('a window wears no color until its settings arrive: then its saved one, non
   expect(windowProjectColor(useApp.getState())).toBe(6);
 });
 
+test('Project Color lists the twelve colors in hue order, by name, the worn one checked', () => {
+  at({ [root]: 9 });
+  const items = projectColorItems();
+  expect(items.map((i) => i !== 'sep' && i.id)).toEqual([9, 6, 10, 3, 11, 2, 7, 5, 1, 4, 8, 12].map((c) => `project-color:${c}`));
+  expect(items.map((i) => i !== 'sep' && i.label)).toEqual(['Coral', 'Orange', 'Gold', 'Lime', 'Green', 'Teal', 'Ocean', 'Blue', 'Violet', 'Orchid', 'Rose', 'Stone']);
+  expect(item(items, 'project-color:9').swatch).toBe('var(--ws-9)');
+  expect(items.filter((i) => i !== 'sep' && i.checked).map((i) => i !== 'sep' && i.id)).toEqual(['project-color:9']);
+});
+
 test("choosing a color sends only that project's color (and the tint on), never the window's copy of the others", () => {
   stubSettings();
   // The window's copy holds other projects; main may have saved more since. Only the chosen root goes.
